@@ -12,6 +12,15 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $facker = \Faker\Factory::create();
+        $users = \App\Models\User::all();
+
+        for($i=0;$i<250;$i++){
+            \App\Models\Post::create([
+                'title' => $facker->word(5),
+                'content' => $facker->paragraph(4),
+                'user_id' => $users->random()->id,
+            ]);
+        }
     }
 }
