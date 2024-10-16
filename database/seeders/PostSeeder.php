@@ -17,8 +17,8 @@ class PostSeeder extends Seeder
 
         for($i=0;$i<250;$i++){
             \App\Models\Post::create([
-                'title' => $facker->word(5),
-                'content' => $facker->paragraph(4),
+                'title' => $facker->sentence(),
+                'content' => $facker->text(rand(500, 900)),
                 'user_id' => $users->random()->id,
             ]);
         }
