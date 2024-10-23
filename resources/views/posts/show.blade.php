@@ -28,7 +28,24 @@
         <!-- Comentarios -->
         <div class="mt-8">
             <h2 class="text-2xl font-semibold mb-4 text-indigo-500">Comments</h2>
-            
+
+            <!-- Si està logat es mostra el formulari per afegir comentaris -->
+            @auth
+            <form action="{{ route('comments.store') }}" method="POST" class="mb-4">
+                @csrf
+                <input type="hidden" name="post_id" value="{{ $post->id }}">
+                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                <textarea name="content" class="w-full p-2 border rounded-md" placeholder="Write a comment"></textarea>
+                <button type="submit" class="mt-2 bg-indigo-500 text-white font-semibold p-2 rounded-md">Add Comment</button>
+            </form>
+            @endauth
+
+            <!-- Si no està logat es mostra un missatge -->
+            @guest
+            <p class="text-red-500">You need to be logged in to comment</p>
+            <p><a href="{{ route('login') }}" class="text-indigo-500">Login</a></p>
+            @endguest
+
             <!-- Tabla de comentarios -->
             <table class="min-w-full bg-white rounded-lg shadow-md">
                 <thead>
